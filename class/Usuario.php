@@ -69,6 +69,52 @@ class Usuario{
 
 	}
 
+	// quando não usa this dentro, então pode ser statico
+	// função statica não é necessario instancia somente chamar
+	public static function getList(){
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_usuarios ORDER BY deslogin");
+	}
+
+
+	//buscar usuario
+	public static function search($losgin){
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM tb_usuarios WHERE deslogin LIKE :search ", array(
+			':search'=> '%'.$losgin.'%'
+		));
+
+	}
+
+
+	//consultar validando 2 valores
+	public function login($login, $senha){
+		$sql = new Sql();
+
+		$result = $sql->select("SELECT * FROM tb_usuarios where deslogin = :login AND dessenha = :senha", array(
+			':login'=>$login,
+			':senha'=>$senha
+		));
+
+		if(count($result) > 0){
+
+			$row = $result[0];
+					//metodo	//linha  // coluna
+			$this->setIdusuario($row['id_usuario']);
+			$this->setDeslogin($row['deslogin']);
+			$this->setDessenha($row['dessenha']);
+			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+		}else{
+			throw new Exception("login ou senha invalida");
+			
+		}
+
+
+	}
+
+
 
 	public function __toString(){
 

@@ -137,7 +137,7 @@ class Usuario{
 
 		$this->setDeslogin($login);
 		$this->setDessenha($senha);
-		
+
 		$sql = new Sql();
 
 		$sql->query("UPDATE tb_usuarios SET deslogin = :login, dessenha = :senha WHERE id_usuario = :id", array(
@@ -148,6 +148,22 @@ class Usuario{
 
 
 
+	}
+
+
+	public function delete(){
+		$sql = new Sql();
+
+		$sql->query("DELETE FROM tb_usuarios WHERE id_usuario = :id", array(
+			":id" => $this->getIdusuario()
+		));
+
+		//colocar vazio na moria depois de apagar
+
+		$this->setIdusuario(0);
+		$this->setDeslogin("");
+		$this->setDessenha("");
+		$this->setDtcadastro(new DateTime());
 	}
 
 

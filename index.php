@@ -42,12 +42,20 @@ echo "<br><br>";
 //echo $aluno;
 echo "<br><br>";
 
+//alterar
+// $usuario = new Usuario();
+// $usuario->loadById(11);
+
+// $usuario->update("jose", "2020");
+
+// echo $usuario;
+// echo "<br><br>";
 
 $usuario = new Usuario();
 $usuario->loadById(11);
-
-$usuario->update("jose", "2020");
-
+$usuario->delete();
 echo $usuario;
+
+
 
  ?>
